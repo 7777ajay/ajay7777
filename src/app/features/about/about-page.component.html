@@ -268,6 +268,103 @@
     </div>
   </section>
 
+  <section id="media" class="section section--dark press-section" aria-labelledby="media-title">
+    <div class="section__inner">
+      <div class="section-heading section-heading--split" data-reveal>
+        <div>
+          <p class="section-kicker">Press & Publications</p>
+          <h2 id="media-title">Hackathon recognition and published research.</h2>
+        </div>
+        <p>
+          Public coverage and journal records connected to Ajay Merapureddy's award and publication.
+        </p>
+      </div>
+
+      <div class="credibility-grid" data-stagger>
+        <article class="credibility-card credibility-card--press" data-stagger-item>
+          <div class="credibility-card__topline">
+            <span class="credibility-card__icon" aria-hidden="true">
+              <svg lucideNewspaper></svg>
+            </span>
+            <span>SWISH Hackathon - Andhra Pradesh 2019</span>
+          </div>
+
+          <h3>III Prize recognition for an AI Navigation app idea.</h3>
+          <p>
+            The award coverage appeared in two newspapers, noting Ajay Merapureddy from GVP among the III
+            Prize winners for the AI Navigation app idea.
+          </p>
+
+          <div class="source-link-grid" aria-label="Newspaper coverage links">
+            @for (mention of pressMentions; track mention.publication) {
+              <a
+                class="source-link"
+                [href]="mention.href"
+                target="_blank"
+                rel="noopener"
+              >
+                <span>
+                  <svg lucideNewspaper aria-hidden="true"></svg>
+                  {{ mention.publication }}
+                </span>
+                <strong>{{ mention.title }}</strong>
+                <small>{{ mention.date }}</small>
+                <p>{{ mention.detail }}</p>
+                <svg lucideExternalLink aria-hidden="true"></svg>
+              </a>
+            }
+          </div>
+        </article>
+
+        <article class="credibility-card credibility-card--publication" data-stagger-item>
+          <div class="credibility-card__topline">
+            <span class="credibility-card__icon" aria-hidden="true">
+              <svg lucideBookOpenText></svg>
+            </span>
+            <span>International journal publication</span>
+          </div>
+
+          <h3>{{ publication.title }}</h3>
+          <p>{{ publication.journal }} - {{ publication.citation }}</p>
+
+          <dl class="publication-meta">
+            <div>
+              <dt>Authors</dt>
+              <dd>{{ publication.authors }}</dd>
+            </div>
+            <div>
+              <dt>DOI</dt>
+              <dd>{{ publication.doi }}</dd>
+            </div>
+          </dl>
+
+          <div class="publication-keywords" aria-label="Publication keywords">
+            @for (keyword of publication.keywords; track keyword) {
+              <span>{{ keyword }}</span>
+            }
+          </div>
+
+          <div class="publication-actions">
+            <a class="publication-action" [href]="publication.href" target="_blank" rel="noopener">
+              <svg lucideBookOpenText aria-hidden="true"></svg>
+              <span>Journal Page</span>
+              <svg lucideExternalLink aria-hidden="true"></svg>
+            </a>
+            <a class="publication-action" [href]="publication.pdfHref" target="_blank" rel="noopener">
+              <svg lucideFileText aria-hidden="true"></svg>
+              <span>PDF</span>
+              <svg lucideExternalLink aria-hidden="true"></svg>
+            </a>
+            <a class="publication-action" [href]="publication.doiHref" target="_blank" rel="noopener">
+              <svg lucideExternalLink aria-hidden="true"></svg>
+              <span>DOI</span>
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <section class="section section--white" aria-labelledby="memberships-title">
     <div class="section__inner memberships-layout">
       <div data-reveal>

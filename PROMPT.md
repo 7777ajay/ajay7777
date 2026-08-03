@@ -17,7 +17,15 @@ Final polish prompt:
 - Do not display wording such as "resume-listed" or "listed in the resume" anywhere in the website UI.
 - Push the UI toward a wow-quality professional portfolio using refined metallic motion, title shine, premium hover states, linked-card affordances, and responsive motion that still respects reduced-motion settings.
 
+Press and publication update prompt:
+- Add a dedicated Press & Publications section under the About Me page using the user-provided and verified sources.
+- Mention SWISH Hackathon - Andhra Pradesh 2019 coverage from The Times of India and The Hans India, stating that Ajay Merapureddy from GVP was among the III Prize winners for an AI Navigation app idea.
+- Mention the international journal publication "Insurance Approval Analysis using Machine Learning Algorithms" in the International Journal of Computer Sciences and Engineering, Vol. 8, Issue 12, pp. 46-50, Dec. 2020.
+- Include publication details exactly from the journal/PDF: authors CH. Lakshman Vinay, G. Vijay Sagar, M. Ajay, SK. Hussain, Bh Padma; DOI 10.26438/ijcse/v8i12.4650; keywords Insurance, Machine Learning, Decision Tree Induction.
+- Provide external links for both newspaper articles, the journal page, the official PDF, and the DOI.
+- Keep the section premium, scannable, accessible, mobile-safe, and consistent with the gold, white, and black motion system.
+
 Content rules:
-- Use only resume-provided facts for text, titles, projects, skills, dates, achievements, certifications, education, memberships, and contact information.
+- Use only resume-provided facts plus explicitly user-supplied verified press and publication facts for text, titles, projects, skills, dates, achievements, certifications, education, memberships, and contact information.
 - Do not invent testimonials, clients, metrics, social links, project outcomes, or biography.
 - Use the provided photos only as visual assets for Ajay Merapureddy.

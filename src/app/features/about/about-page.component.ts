@@ -3,15 +3,18 @@ import {
   LucideArrowUpRight,
   LucideAward,
   LucideBadgeCheck,
+  LucideBookOpenText,
   LucideBriefcaseBusiness,
   LucideCalendarDays,
   LucideDownload,
   LucideExternalLink,
+  LucideFileText,
   LucideGraduationCap,
   LucideLayers,
   LucideMail,
   LucideMapPin,
   LucideMenu,
+  LucideNewspaper,
   LucidePhone,
   LucideShieldCheck,
   LucideSparkles,
@@ -74,21 +77,44 @@ type Achievement = {
   href?: string;
 };
 
+type PressMention = {
+  publication: string;
+  date: string;
+  title: string;
+  detail: string;
+  href: string;
+};
+
+type Publication = {
+  title: string;
+  journal: string;
+  citation: string;
+  authors: string;
+  doi: string;
+  keywords: string[];
+  href: string;
+  pdfHref: string;
+  doiHref: string;
+};
+
 @Component({
   selector: 'app-about-page',
   imports: [
     LucideArrowUpRight,
     LucideAward,
     LucideBadgeCheck,
+    LucideBookOpenText,
     LucideBriefcaseBusiness,
     LucideCalendarDays,
     LucideDownload,
     LucideExternalLink,
+    LucideFileText,
     LucideGraduationCap,
     LucideLayers,
     LucideMail,
     LucideMapPin,
     LucideMenu,
+    LucideNewspaper,
     LucidePhone,
     LucideShieldCheck,
     LucideSparkles,
@@ -109,6 +135,7 @@ export class AboutPageComponent {
     { label: 'Experience', href: '/about-me#experience' },
     { label: 'Skills', href: '/about-me#skills' },
     { label: 'Certifications', href: '/about-me#certifications' },
+    { label: 'Media', href: '/about-me#media' },
     { label: 'Contact', href: '/about-me#contact' }
   ];
 
@@ -312,6 +339,35 @@ export class AboutPageComponent {
     }
   ];
 
+  readonly pressMentions: PressMention[] = [
+    {
+      publication: 'The Times of India',
+      date: 'Sep 10, 2019',
+      title: 'Gitam holds Swish hackathon',
+      detail: 'Covered Ajay Merapureddy from GVP among the III Prize winners for an AI Navigation app idea at SWISH Hackathon - Andhra Pradesh 2019.',
+      href: 'https://timesofindia.indiatimes.com/city/visakhapatnam/gitam-holds-swish-hackathon/articleshow/71055625.cms'
+    },
+    {
+      publication: 'The Hans India',
+      date: '10 Sept 2019',
+      title: 'GITAM holds SWISH Hackathon',
+      detail: 'Reported the III Prize recognition for the AI Navigation app idea with Ajay Merapureddy from GVP.',
+      href: 'https://www.thehansindia.com/hans/young-hans/gitam-holds-swish-hackathon-562500'
+    }
+  ];
+
+  readonly publication: Publication = {
+    title: 'Insurance Approval Analysis using Machine Learning Algorithms',
+    journal: 'International Journal of Computer Sciences and Engineering',
+    citation: 'Vol. 8, Issue 12, pp. 46-50, Dec. 2020',
+    authors: 'CH. Lakshman Vinay, G. Vijay Sagar, M. Ajay, SK. Hussain, Bh Padma',
+    doi: '10.26438/ijcse/v8i12.4650',
+    keywords: ['Insurance', 'Machine Learning', 'Decision Tree Induction'],
+    href: 'https://ijcseonline.org/index.php/j/article/view/6223',
+    pdfHref: 'https://ijcseonline.org/index.php/j/article/download/6223/6212/12388',
+    doiHref: 'https://doi.org/10.26438/ijcse/v8i12.4650'
+  };
+
   readonly memberships = [
     'Computer Society of India (2016 - 2020)',
     'European Alliance for Innovation (2019 - Present)',
@@ -348,10 +404,26 @@ export class AboutPageComponent {
       const revealItems = Array.from(root.querySelectorAll<HTMLElement>('[data-reveal]'));
       const staggerContainers = Array.from(root.querySelectorAll<HTMLElement>('[data-stagger]'));
       const spotlightItems = Array.from(root.querySelectorAll<HTMLElement>(
-        '.metric-card, .project-card, .skill-card, .timeline-item__body, .cert-list a, .achievement-list article, .achievement-list a'
+        '.metric-card, .project-card, .skill-card, .timeline-item__body, .cert-list a, .achievement-list article, .achievement-list a, .credibility-card'
       ));
       const stops: Array<() => void> = [];
       const cleanupCallbacks: Array<() => void> = [];
+      const scrollToCurrentHash = (): void => {
+        const id = window.location.hash.slice(1);
+        const target = id ? document.getElementById(id) : null;
+
+        if (target) {
+          target.scrollIntoView({ block: 'start' });
+        }
+      };
+      const hashTimers = [
+        window.setTimeout(scrollToCurrentHash, 80),
+        window.setTimeout(scrollToCurrentHash, 420),
+        window.setTimeout(scrollToCurrentHash, 1100)
+      ];
+
+      window.addEventListener('hashchange', scrollToCurrentHash);
+      cleanupCallbacks.push(() => window.removeEventListener('hashchange', scrollToCurrentHash));
 
       if (prefersReducedMotion) {
         [
@@ -363,6 +435,10 @@ export class AboutPageComponent {
         ].forEach((element) => {
           element.style.opacity = '1';
           element.style.transform = 'none';
+        });
+        this.destroyRef.onDestroy(() => {
+          cleanupCallbacks.forEach((cleanup) => cleanup());
+          hashTimers.forEach((timer) => window.clearTimeout(timer));
         });
         return;
       }
@@ -486,6 +562,7 @@ export class AboutPageComponent {
       this.destroyRef.onDestroy(() => {
         stops.forEach((stop) => stop());
         cleanupCallbacks.forEach((cleanup) => cleanup());
+        hashTimers.forEach((timer) => window.clearTimeout(timer));
         rescueTimers.forEach((timer) => window.clearTimeout(timer));
       });
     });
