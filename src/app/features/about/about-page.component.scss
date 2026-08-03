@@ -40,7 +40,9 @@
 .nav a,
 .button,
 .icon-link,
-.contact-grid a {
+.contact-grid a,
+.cert-list a,
+.achievement-list a {
   text-decoration: none;
 }
 
@@ -348,13 +350,21 @@ main {
 
 .hero h1 {
   max-width: 690px;
+  color: var(--color-white);
   font-size: clamp(3.8rem, 8vw, 7.9rem);
   font-weight: 800;
   overflow-wrap: normal;
+  text-shadow: 0 20px 80px rgba(227, 185, 86, 0.08);
 }
 
 .hero h1 span {
   display: block;
+  width: fit-content;
+  background: linear-gradient(95deg, #ffffff 0%, #ffffff 39%, #f4dfaa 50%, #ffffff 61%, #ffffff 100%);
+  background-size: 230% 100%;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: titleShine 6.8s ease-in-out infinite;
 }
 
 .hero__summary {
@@ -400,14 +410,42 @@ main {
 
 .button,
 .icon-link {
+  position: relative;
   display: inline-flex;
   min-height: 48px;
   align-items: center;
   justify-content: center;
   gap: 10px;
+  overflow: hidden;
+  isolation: isolate;
   border-radius: 8px;
   font-weight: 800;
   transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, color 180ms ease;
+}
+
+.button::after,
+.icon-link::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  z-index: 1;
+  background: linear-gradient(115deg, transparent 18%, rgba(255, 255, 255, 0.42) 46%, transparent 68%);
+  opacity: 0.32;
+  pointer-events: none;
+  transform: translateX(-135%);
+  transition: transform 720ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.button > span,
+.button > svg,
+.icon-link > svg {
+  position: relative;
+  z-index: 2;
+}
+
+.button:hover::after,
+.icon-link:hover::after {
+  transform: translateX(135%);
 }
 
 .button {
@@ -558,8 +596,39 @@ main {
 .metric-card,
 .project-card,
 .skill-card,
-.achievement-list article {
+.timeline-item__body,
+.cert-list a,
+.achievement-list article,
+.achievement-list a {
+  --spotlight-x: 50%;
+  --spotlight-y: 0%;
   border-radius: 8px;
+}
+
+.metric-card::before,
+.project-card::before,
+.skill-card::before,
+.timeline-item__body::before,
+.cert-list a::before,
+.achievement-list article::before,
+.achievement-list a::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--spotlight-x) var(--spotlight-y), rgba(244, 223, 170, 0.22), transparent 38%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+}
+
+.metric-card:hover::before,
+.project-card:hover::before,
+.skill-card:hover::before,
+.timeline-item__body:hover::before,
+.cert-list a:hover::before,
+.achievement-list article:hover::before,
+.achievement-list a:hover::before {
+  opacity: 1;
 }
 
 .metric-card {
@@ -576,7 +645,8 @@ main {
 .project-card::after,
 .skill-card::after,
 .timeline-item__body::after,
-.achievement-list article::after {
+.achievement-list article::after,
+.achievement-list a::after {
   content: '';
   position: absolute;
   inset: 0;
@@ -591,7 +661,8 @@ main {
 .project-card:hover::after,
 .skill-card:hover::after,
 .timeline-item__body:hover::after,
-.achievement-list article:hover::after {
+.achievement-list article:hover::after,
+.achievement-list a:hover::after {
   opacity: 1;
   transform: translateX(95%);
 }
@@ -815,19 +886,34 @@ main {
   margin-top: 34px;
 }
 
-.cert-list article,
+.cert-list a,
 .education-panel article,
-.achievement-list article {
+.achievement-list article,
+.achievement-list a {
   display: flex;
   gap: 14px;
   padding: 18px;
   border-radius: 8px;
 }
 
-.cert-list article,
+.cert-list a,
 .education-panel article {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(244, 223, 170, 0.16);
+  transition: transform 200ms ease, border-color 200ms ease, background 200ms ease;
+}
+
+.cert-list a {
+  position: relative;
+  overflow: hidden;
+  align-items: flex-start;
+  color: inherit;
+}
+
+.cert-list a:hover {
+  transform: translateY(-3px);
+  background: rgba(227, 185, 86, 0.1);
+  border-color: rgba(227, 185, 86, 0.48);
 }
 
 .cert-list svg,
@@ -840,6 +926,11 @@ main {
 .cert-list span,
 .education-panel span {
   color: rgba(255, 255, 255, 0.76);
+}
+
+.cert-list a > svg:last-child,
+.achievement-list a > svg:last-child {
+  margin-left: auto;
 }
 
 .education-panel {
@@ -863,13 +954,21 @@ main {
   gap: 14px;
 }
 
-.achievement-list article {
+.achievement-list article,
+.achievement-list a {
   position: relative;
   overflow: hidden;
   color: var(--color-ink);
   background: var(--color-white);
   border: 1px solid rgba(17, 17, 17, 0.08);
   box-shadow: 0 12px 35px rgba(17, 17, 17, 0.06);
+  transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.achievement-list a:hover {
+  transform: translateY(-3px);
+  border-color: rgba(227, 185, 86, 0.48);
+  box-shadow: 0 18px 50px rgba(17, 17, 17, 0.1);
 }
 
 .achievement-list p {
@@ -1071,6 +1170,18 @@ main {
   }
 }
 
+@keyframes titleShine {
+  0%,
+  38% {
+    background-position: 120% 50%;
+  }
+
+  64%,
+  100% {
+    background-position: -120% 50%;
+  }
+}
+
 @keyframes portraitFloat {
   0%,
   100% {
@@ -1208,10 +1319,21 @@ main {
     padding: calc(var(--nav-height) + 42px) 18px 54px;
   }
 
+  .hero__ambient {
+    background:
+      radial-gradient(circle at 72% 52%, rgba(227, 185, 86, 0.18), transparent 44%),
+      radial-gradient(circle at 18% 20%, rgba(244, 223, 170, 0.08), transparent 34%),
+      #050505;
+  }
+
+  .hero__beam {
+    display: none;
+  }
+
   .hero__shade {
     background:
-      linear-gradient(180deg, rgba(5, 5, 5, 0.9) 0%, rgba(5, 5, 5, 0.48) 54%, rgba(5, 5, 5, 0.96) 100%),
-      linear-gradient(90deg, rgba(5, 5, 5, 0.78), rgba(5, 5, 5, 0.3));
+      linear-gradient(180deg, rgba(5, 5, 5, 0.7) 0%, rgba(5, 5, 5, 0.2) 50%, rgba(5, 5, 5, 0.68) 100%),
+      linear-gradient(90deg, rgba(5, 5, 5, 0.46), rgba(5, 5, 5, 0.08));
   }
 
   .hero h1 {
@@ -1234,12 +1356,29 @@ main {
   }
 
   .hero__portrait-stage {
-    width: min(300px, 78vw);
-    justify-self: start;
+    width: min(336px, calc(100vw - 36px));
+    justify-self: center;
+    filter: drop-shadow(0 18px 36px rgba(227, 185, 86, 0.13));
+  }
+
+  .hero__portrait-stage::before {
+    border-color: rgba(244, 223, 170, 0.24);
+    transform: rotate(-1.1deg);
+  }
+
+  .hero__portrait-glow {
+    inset: 4%;
+    background:
+      linear-gradient(135deg, rgba(227, 185, 86, 0.16), transparent 62%),
+      rgba(255, 255, 255, 0.04);
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+      0 18px 38px rgba(227, 185, 86, 0.1);
   }
 
   .hero__image {
     max-height: 480px;
+    filter: saturate(1.04) contrast(1.03) brightness(1.04);
   }
 
   .hero__orbit {
@@ -1320,9 +1459,13 @@ main {
     font-size: 1rem;
   }
 
-  .button,
+  .button {
+    flex: 0 1 auto;
+    padding-inline: 15px;
+  }
+
   .icon-link {
-    width: 100%;
+    width: 48px;
   }
 
   .project-card,
@@ -1340,6 +1483,7 @@ main {
 @media (prefers-reduced-motion: reduce) {
   .hero__beam,
   .hero__grid,
+  .hero h1 span,
   .hero__portrait-stage,
   .hero__portrait-stage::after,
   .hero__orbit,
@@ -1348,10 +1492,19 @@ main {
   }
 
   .metric-card::after,
+  .metric-card::before,
   .project-card::after,
+  .project-card::before,
   .skill-card::after,
+  .skill-card::before,
   .timeline-item__body::after,
+  .timeline-item__body::before,
+  .cert-list a::before,
   .achievement-list article::after,
+  .achievement-list article::before,
+  .achievement-list a::before,
+  .button::after,
+  .icon-link::after,
   .photo-card::after {
     display: none;
   }

@@ -8,8 +8,14 @@ Image and animation upgrade prompt:
 - Fix all image composition so supplied photos render properly without awkward half-cropping.
 - Keep the hero portrait visible as a full composed portrait instead of using it as a heavily cropped background image.
 - Present supporting photos in premium cinematic frames with full-image foregrounds, ambient blurred backdrops, gold borders, depth, and responsive aspect ratios.
-- Add a high-end motion system using layered hero reveal, portrait entrance, floating resume skill chips, scroll-triggered reveal, staggered card choreography, hover depth, shimmer passes, timeline pulse, and reduced-motion fallbacks.
+- Add a high-end motion system using layered hero reveal, portrait entrance, floating technical skill chips, scroll-triggered reveal, staggered card choreography, hover depth, shimmer passes, timeline pulse, and reduced-motion fallbacks.
 - Keep animations meaningful, smooth, and professional; do not add unrelated gimmicks, fake stats, or text that is not grounded in the resume.
+
+Final polish prompt:
+- In mobile view, keep the first hero image clean against the black hero background; reduce heavy black shading around the image frame and preserve a subtle gold glow.
+- Match the forwarding behavior from the source resume PDF: email opens mail, LinkedIn opens the LinkedIn profile, AWS certifications open AWS verification, Microsoft certifications open their credential share URLs, and the TCS award recognition opens the linked Google Drive certificate folder.
+- Do not display wording such as "resume-listed" or "listed in the resume" anywhere in the website UI.
+- Push the UI toward a wow-quality professional portfolio using refined metallic motion, title shine, premium hover states, linked-card affordances, and responsive motion that still respects reduced-motion settings.
 
 Content rules:
 - Use only resume-provided facts for text, titles, projects, skills, dates, achievements, certifications, education, memberships, and contact information.

@@ -64,6 +64,16 @@ type Photo = {
   variant: 'portrait' | 'wide' | 'square';
 };
 
+type Credential = {
+  label: string;
+  href: string;
+};
+
+type Achievement = {
+  label: string;
+  href?: string;
+};
+
 @Component({
   selector: 'app-about-page',
   imports: [
@@ -95,11 +105,11 @@ export class AboutPageComponent {
   readonly menuOpen = signal(false);
 
   readonly navItems: LinkItem[] = [
-    { label: 'About', href: '#about' },
-    { label: 'Experience', href: '#experience' },
-    { label: 'Skills', href: '#skills' },
-    { label: 'Certifications', href: '#certifications' },
-    { label: 'Contact', href: '#contact' }
+    { label: 'About', href: '/about-me#about' },
+    { label: 'Experience', href: '/about-me#experience' },
+    { label: 'Skills', href: '/about-me#skills' },
+    { label: 'Certifications', href: '/about-me#certifications' },
+    { label: 'Contact', href: '/about-me#contact' }
   ];
 
   readonly metrics: Metric[] = [
@@ -262,19 +272,44 @@ export class AboutPageComponent {
     }
   ];
 
-  readonly certifications = [
-    'AWS Certified Cloud Practitioner (Validation Number: 122ZPQN2XF14Q4CN)',
-    'AWS Certified Developer - Associate (Validation Number: 74cd83ccc2b24b2baedb6b44dad9d6ee)',
-    'AWS Certified Solutions Architect - Associate (Validation Number: 05d632b2528a4efbaadb4f481383f11c)',
-    'Microsoft Certified: Azure Fundamentals AZ-900',
-    'Microsoft Certified: Azure Administrator Associate AZ 104',
-    'Microsoft Certified: Azure Solutions Architect Expert AZ 305'
+  readonly certifications: Credential[] = [
+    {
+      label: 'AWS Certified Cloud Practitioner (Validation Number: 122ZPQN2XF14Q4CN)',
+      href: 'https://aws.amazon.com/verification'
+    },
+    {
+      label: 'AWS Certified Developer - Associate (Validation Number: 74cd83ccc2b24b2baedb6b44dad9d6ee)',
+      href: 'https://aws.amazon.com/verification'
+    },
+    {
+      label: 'AWS Certified Solutions Architect - Associate (Validation Number: 05d632b2528a4efbaadb4f481383f11c)',
+      href: 'https://aws.amazon.com/verification'
+    },
+    {
+      label: 'Microsoft Certified: Azure Fundamentals AZ-900',
+      href: 'https://learn.microsoft.com/api/credentials/share/en-us/ajay7777/5074660E49BF91C?sharingId'
+    },
+    {
+      label: 'Microsoft Certified: Azure Administrator Associate AZ 104',
+      href: 'https://learn.microsoft.com/api/credentials/share/en-us/ajay7777/F76CF9EACE45D77D?sharingId'
+    },
+    {
+      label: 'Microsoft Certified: Azure Solutions Architect Expert AZ 305',
+      href: 'https://learn.microsoft.com/api/credentials/share/en-us/ajay7777/E8841040150D24A5?sharingId'
+    }
   ];
 
-  readonly achievements = [
-    'Received the Merit Scholarship Award 3 times in a row under the Educational Scholarship Scheme from the Director General Naval Projects(V). (2014 - 2016)',
-    '3rd Prize Winner in "SWISH Sunrise Indian Innovative Student Hackathon" (09/2019)',
-    'Received Best Team Award and On The Spot Award from Executive Vice President and Global Head Human Resources Milind Lakkad and Appreciation Certificate from HR Chandu and Delivery Partner Anitha Mohan State Farm Account, TCS.'
+  readonly achievements: Achievement[] = [
+    {
+      label: 'Received the Merit Scholarship Award 3 times in a row under the Educational Scholarship Scheme from the Director General Naval Projects(V). (2014 - 2016)'
+    },
+    {
+      label: '3rd Prize Winner in "SWISH Sunrise Indian Innovative Student Hackathon" (09/2019)'
+    },
+    {
+      label: 'Received Best Team Award and On The Spot Award from Executive Vice President and Global Head Human Resources Milind Lakkad and Appreciation Certificate from HR Chandu and Delivery Partner Anitha Mohan State Farm Account, TCS.',
+      href: 'https://drive.google.com/drive/folders/1z58j0U3BysurpkC4rycMV4iatet9hU-i?usp=drive_link'
+    }
   ];
 
   readonly memberships = [
@@ -312,7 +347,11 @@ export class AboutPageComponent {
       const orbitItems = Array.from(root.querySelectorAll<HTMLElement>('[data-orbit-reveal]'));
       const revealItems = Array.from(root.querySelectorAll<HTMLElement>('[data-reveal]'));
       const staggerContainers = Array.from(root.querySelectorAll<HTMLElement>('[data-stagger]'));
+      const spotlightItems = Array.from(root.querySelectorAll<HTMLElement>(
+        '.metric-card, .project-card, .skill-card, .timeline-item__body, .cert-list a, .achievement-list article, .achievement-list a'
+      ));
       const stops: Array<() => void> = [];
+      const cleanupCallbacks: Array<() => void> = [];
 
       if (prefersReducedMotion) {
         [
@@ -332,6 +371,19 @@ export class AboutPageComponent {
       const heroKeyframes: DOMKeyframesDefinition = { opacity: [0, 1], y: [24, 0], filter: ['blur(10px)', 'blur(0px)'] };
       const visualKeyframes: DOMKeyframesDefinition = { opacity: [0, 1], x: [54, 0], scale: [0.94, 1] };
       const revealKeyframes: DOMKeyframesDefinition = { opacity: [0, 1], y: [28, 0], scale: [0.98, 1] };
+
+      spotlightItems.forEach((element) => {
+        const moveSpotlight = (event: PointerEvent): void => {
+          const bounds = element.getBoundingClientRect();
+          const x = ((event.clientX - bounds.left) / bounds.width) * 100;
+          const y = ((event.clientY - bounds.top) / bounds.height) * 100;
+          element.style.setProperty('--spotlight-x', `${Math.max(0, Math.min(100, x))}%`);
+          element.style.setProperty('--spotlight-y', `${Math.max(0, Math.min(100, y))}%`);
+        };
+
+        element.addEventListener('pointermove', moveSpotlight);
+        cleanupCallbacks.push(() => element.removeEventListener('pointermove', moveSpotlight));
+      });
 
       animate(
         heroItems,
@@ -433,6 +485,7 @@ export class AboutPageComponent {
 
       this.destroyRef.onDestroy(() => {
         stops.forEach((stop) => stop());
+        cleanupCallbacks.forEach((cleanup) => cleanup());
         rescueTimers.forEach((timer) => window.clearTimeout(timer));
       });
     });
