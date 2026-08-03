@@ -61,6 +61,7 @@ type Project = {
 type Photo = {
   src: string;
   alt: string;
+  variant: 'portrait' | 'wide' | 'square';
 };
 
 @Component({
@@ -283,54 +284,157 @@ export class AboutPageComponent {
   ];
 
   readonly photos: Photo[] = [
-    { src: '/assets/photos/ajay-profile-1.jpeg', alt: 'Ajay Merapureddy professional photo' },
-    { src: '/assets/photos/ajay-profile-2.jpeg', alt: 'Ajay Merapureddy seated portrait' },
-    { src: '/assets/photos/ajay-profile-3.jpeg', alt: 'Ajay Merapureddy portrait on steps' }
+    {
+      src: '/assets/photos/ajay-profile-1.jpeg',
+      alt: 'Ajay Merapureddy professional photo',
+      variant: 'portrait'
+    },
+    {
+      src: '/assets/photos/ajay-profile-2.jpeg',
+      alt: 'Ajay Merapureddy seated portrait',
+      variant: 'square'
+    },
+    {
+      src: '/assets/photos/ajay-profile-3.jpeg',
+      alt: 'Ajay Merapureddy portrait on steps',
+      variant: 'wide'
+    }
   ];
 
   constructor() {
     afterNextRender(() => {
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const root = this.host.nativeElement;
+      root.classList.add('motion-ready');
+
       const heroItems = Array.from(root.querySelectorAll<HTMLElement>('[data-hero-reveal]'));
+      const heroVisuals = Array.from(root.querySelectorAll<HTMLElement>('[data-hero-visual]'));
+      const orbitItems = Array.from(root.querySelectorAll<HTMLElement>('[data-orbit-reveal]'));
       const revealItems = Array.from(root.querySelectorAll<HTMLElement>('[data-reveal]'));
+      const staggerContainers = Array.from(root.querySelectorAll<HTMLElement>('[data-stagger]'));
+      const stops: Array<() => void> = [];
 
       if (prefersReducedMotion) {
-        [...heroItems, ...revealItems].forEach((element) => {
+        [
+          ...heroItems,
+          ...heroVisuals,
+          ...orbitItems,
+          ...revealItems,
+          ...Array.from(root.querySelectorAll<HTMLElement>('[data-stagger-item]'))
+        ].forEach((element) => {
           element.style.opacity = '1';
           element.style.transform = 'none';
         });
         return;
       }
 
-      const ease: AnimationOptions['ease'] = [0.22, 0.75, 0.27, 1];
-      const heroKeyframes: DOMKeyframesDefinition = { opacity: [0, 1], y: [18, 0] };
-      const revealKeyframes: DOMKeyframesDefinition = { opacity: [0, 1], y: [22, 0] };
+      const ease: AnimationOptions['ease'] = [0.16, 1, 0.3, 1];
+      const heroKeyframes: DOMKeyframesDefinition = { opacity: [0, 1], y: [24, 0], filter: ['blur(10px)', 'blur(0px)'] };
+      const visualKeyframes: DOMKeyframesDefinition = { opacity: [0, 1], x: [54, 0], scale: [0.94, 1] };
+      const revealKeyframes: DOMKeyframesDefinition = { opacity: [0, 1], y: [28, 0], scale: [0.98, 1] };
 
       animate(
         heroItems,
         heroKeyframes,
-        { delay: stagger(0.08), duration: 0.62, ease }
+        { delay: stagger(0.075), duration: 0.82, ease }
+      );
+
+      animate(
+        heroVisuals,
+        visualKeyframes,
+        { delay: 0.18, duration: 1.05, ease }
+      );
+
+      animate(
+        orbitItems,
+        { opacity: [0, 1], scale: [0.82, 1], y: [14, 0] },
+        { delay: stagger(0.08, { startDelay: 0.56 }), duration: 0.7, ease }
       );
 
       revealItems.forEach((element) => {
         element.style.opacity = '0';
-        element.style.transform = 'translateY(22px)';
+        element.style.transform = 'translateY(28px) scale(0.98)';
       });
 
-      const stop = inView(
+      const isVisibleInViewport = (element: HTMLElement): boolean => {
+        const bounds = element.getBoundingClientRect();
+        return bounds.top < window.innerHeight * 0.92 && bounds.bottom > window.innerHeight * 0.06;
+      };
+
+      const playReveal = (element: HTMLElement): void => {
+        if (element.dataset['animated'] === 'true') {
+          return;
+        }
+
+        element.dataset['animated'] = 'true';
+        animate(
+          element,
+          revealKeyframes,
+          { duration: 0.72, ease }
+        );
+      };
+
+      const playStagger = (container: HTMLElement, items: HTMLElement[]): void => {
+        if (container.dataset['animated'] === 'true') {
+          return;
+        }
+
+        container.dataset['animated'] = 'true';
+        animate(
+          items,
+          revealKeyframes,
+          { delay: stagger(0.055), duration: 0.76, ease }
+        );
+      };
+
+      stops.push(inView(
         revealItems,
         (element) => {
-          animate(
-            element as HTMLElement,
-            revealKeyframes,
-            { duration: 0.56, ease }
-          );
+          playReveal(element as HTMLElement);
         },
         { amount: 0.16, margin: '0px 0px -10% 0px' }
-      );
+      ));
 
-      this.destroyRef.onDestroy(() => stop());
+      const staggerGroups: Array<{ container: HTMLElement; items: HTMLElement[] }> = [];
+
+      staggerContainers.forEach((container) => {
+        const items = Array.from(container.querySelectorAll<HTMLElement>('[data-stagger-item]'));
+        staggerGroups.push({ container, items });
+
+        items.forEach((item) => {
+          item.style.opacity = '0';
+          item.style.transform = 'translateY(30px) scale(0.985)';
+        });
+
+        stops.push(inView(
+          container,
+          () => {
+            playStagger(container, items);
+          },
+          { amount: 0.12, margin: '0px 0px -8% 0px' }
+        ));
+      });
+
+      const rescueVisibleItems = (): void => {
+        revealItems
+          .filter(isVisibleInViewport)
+          .forEach(playReveal);
+
+        staggerGroups
+          .filter(({ container }) => isVisibleInViewport(container))
+          .forEach(({ container, items }) => playStagger(container, items));
+      };
+
+      const rescueTimers = [
+        window.setTimeout(rescueVisibleItems, 120),
+        window.setTimeout(rescueVisibleItems, 520),
+        window.setTimeout(rescueVisibleItems, 1100)
+      ];
+
+      this.destroyRef.onDestroy(() => {
+        stops.forEach((stop) => stop());
+        rescueTimers.forEach((timer) => window.clearTimeout(timer));
+      });
     });
   }
 

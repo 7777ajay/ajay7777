@@ -29,16 +29,18 @@
 
 <main id="main">
   <section id="about" class="hero" aria-labelledby="hero-title">
-    <img
-      class="hero__image"
-      src="/assets/photos/ajay-profile-4.jpeg"
-      alt="Ajay Merapureddy professional portrait"
-      fetchpriority="high"
-    >
+    <div class="hero__ambient" aria-hidden="true">
+      <span class="hero__beam hero__beam--one"></span>
+      <span class="hero__beam hero__beam--two"></span>
+      <span class="hero__grid"></span>
+    </div>
     <div class="hero__shade" aria-hidden="true"></div>
     <div class="hero__content">
       <p class="eyebrow" data-hero-reveal>Java Full Stack Developer</p>
-      <h1 id="hero-title" data-hero-reveal>Ajay Merapureddy</h1>
+      <h1 id="hero-title" data-hero-reveal>
+        <span>Ajay</span>
+        <span>Merapureddy</span>
+      </h1>
       <p class="hero__summary" data-hero-reveal>
         Experienced Java Full Stack Developer with over 5.10+ years of expertise in overseeing
         the Software Development Life Cycle.
@@ -72,6 +74,19 @@
           <svg lucideExternalLink aria-hidden="true"></svg>
         </a>
       </div>
+    </div>
+    <div class="hero__portrait-stage" data-hero-visual>
+      <div class="hero__portrait-glow" aria-hidden="true"></div>
+      <img
+        class="hero__image"
+        src="/assets/photos/ajay-profile-4.jpeg"
+        alt="Ajay Merapureddy professional portrait"
+        fetchpriority="high"
+      >
+      <div class="hero__orbit hero__orbit--one" data-orbit-reveal>Java</div>
+      <div class="hero__orbit hero__orbit--two" data-orbit-reveal>Angular</div>
+      <div class="hero__orbit hero__orbit--three" data-orbit-reveal>Spring Boot</div>
+      <div class="hero__orbit hero__orbit--four" data-orbit-reveal>Microservices</div>
     </div>
   </section>
 
@@ -156,9 +171,9 @@
         <h2 id="projects-title">Resume-listed project work.</h2>
       </div>
 
-      <div class="project-grid">
+      <div class="project-grid" data-stagger>
         @for (project of projects; track project.name) {
-          <article class="project-card" data-reveal>
+          <article class="project-card" data-stagger-item>
             <svg lucideLayers aria-hidden="true"></svg>
             <h3>{{ project.name }}</h3>
             <p>{{ project.context }}</p>
@@ -180,9 +195,9 @@
         <h2 id="skills-title">Technical, tool, and soft skill coverage.</h2>
       </div>
 
-      <div class="skills-grid">
+      <div class="skills-grid" data-stagger>
         @for (group of skillGroups; track group.title) {
-          <article class="skill-card" data-reveal>
+          <article class="skill-card" data-stagger-item>
             <h3><svg lucideTerminal aria-hidden="true"></svg>{{ group.title }}</h3>
             <div class="chip-list">
               @for (skill of group.items; track skill) {
@@ -259,10 +274,21 @@
     </div>
   </section>
 
-  <section class="photo-strip" aria-label="Ajay Merapureddy photos">
-    @for (photo of photos; track photo.src) {
-      <img [src]="photo.src" [alt]="photo.alt" loading="lazy">
-    }
+  <section id="photos" class="photo-gallery" aria-label="Ajay Merapureddy photos">
+    <div class="photo-mosaic" data-stagger>
+      @for (photo of photos; track photo.src) {
+        <figure
+          class="photo-card"
+          [class.photo-card--portrait]="photo.variant === 'portrait'"
+          [class.photo-card--square]="photo.variant === 'square'"
+          [class.photo-card--wide]="photo.variant === 'wide'"
+          data-stagger-item
+        >
+          <img class="photo-card__backdrop" [src]="photo.src" alt="" aria-hidden="true" loading="lazy">
+          <img class="photo-card__image" [src]="photo.src" [alt]="photo.alt" loading="lazy">
+        </figure>
+      }
+    </div>
   </section>
 
   <section id="contact" class="contact-section" aria-labelledby="contact-title">
