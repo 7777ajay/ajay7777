@@ -1,0 +1,296 @@
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="site-header" [class.site-header--open]="menuOpen()">
+  <a class="brand" href="#about" aria-label="Ajay Merapureddy About Me" (click)="closeMenu()">
+    <span class="brand__mark">AM</span>
+    <span class="brand__text">Ajay Merapureddy</span>
+  </a>
+
+  <button
+    class="nav-toggle"
+    type="button"
+    aria-label="Toggle navigation"
+    [attr.aria-expanded]="menuOpen()"
+    (click)="toggleMenu()"
+  >
+    @if (menuOpen()) {
+      <svg lucideX aria-hidden="true"></svg>
+    } @else {
+      <svg lucideMenu aria-hidden="true"></svg>
+    }
+  </button>
+
+  <nav class="nav" aria-label="Primary navigation">
+    @for (item of navItems; track item.label) {
+      <a [href]="item.href" (click)="closeMenu()">{{ item.label }}</a>
+    }
+  </nav>
+</header>
+
+<main id="main">
+  <section id="about" class="hero" aria-labelledby="hero-title">
+    <img
+      class="hero__image"
+      src="/assets/photos/ajay-profile-4.jpeg"
+      alt="Ajay Merapureddy professional portrait"
+      fetchpriority="high"
+    >
+    <div class="hero__shade" aria-hidden="true"></div>
+    <div class="hero__content">
+      <p class="eyebrow" data-hero-reveal>Java Full Stack Developer</p>
+      <h1 id="hero-title" data-hero-reveal>Ajay Merapureddy</h1>
+      <p class="hero__summary" data-hero-reveal>
+        Experienced Java Full Stack Developer with over 5.10+ years of expertise in overseeing
+        the Software Development Life Cycle.
+      </p>
+      <div class="hero__meta" aria-label="Contact summary" data-hero-reveal>
+        <span><svg lucideMapPin aria-hidden="true"></svg>Hyderabad, Telangana</span>
+        <span><svg lucidePhone aria-hidden="true"></svg>7777977220</span>
+        <span><svg lucideMail aria-hidden="true"></svg>ajaymerapureddy&#64;gmail.com</span>
+      </div>
+      <div class="hero__actions" data-hero-reveal>
+        <a class="button button--gold" href="mailto:ajaymerapureddy@gmail.com">
+          <svg lucideMail aria-hidden="true"></svg>
+          Contact
+        </a>
+        <a
+          class="button button--ghost"
+          href="/assets/docs/Ajay_Resume.pdf"
+          target="_blank"
+          rel="noopener"
+        >
+          <svg lucideDownload aria-hidden="true"></svg>
+          Resume
+        </a>
+        <a
+          class="icon-link"
+          href="https://linkedin.com/in/merapureddy/"
+          target="_blank"
+          rel="noopener"
+          aria-label="Open Ajay Merapureddy LinkedIn profile"
+        >
+          <svg lucideExternalLink aria-hidden="true"></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--light">
+    <div class="section__inner intro-grid">
+      <div class="portrait-panel" data-reveal>
+        <img src="/assets/photos/ajay-headshot.jpg" alt="Ajay Merapureddy headshot">
+      </div>
+
+      <div class="intro-copy" data-reveal>
+        <p class="section-kicker">About Me</p>
+        <h2>High-quality, cost-effective applications across analysis, design, execution, and maintenance.</h2>
+        <p>
+          Proficient in analysis, design, execution, and maintenance, delivering high-quality,
+          cost-effective applications. Skilled in coding, testing, and enhancing organizational efficiency.
+        </p>
+
+        <div class="focus-list" aria-label="Focus areas">
+          @for (item of focusAreas; track item) {
+            <span><svg lucideBadgeCheck aria-hidden="true"></svg>{{ item }}</span>
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="metrics-band" aria-label="Resume highlights">
+    <div class="metrics-band__inner">
+      @for (metric of metrics; track metric.label) {
+        <article class="metric-card" data-reveal>
+          <strong>{{ metric.value }}</strong>
+          <span>{{ metric.label }}</span>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section id="experience" class="section section--dark" aria-labelledby="experience-title">
+    <div class="section__inner">
+      <div class="section-heading" data-reveal>
+        <p class="section-kicker">Experience</p>
+        <h2 id="experience-title">Product development, enterprise systems, and Java engineering.</h2>
+      </div>
+
+      <div class="timeline">
+        @for (experience of experiences; track experience.company) {
+          <article class="timeline-item" data-reveal>
+            <div class="timeline-item__marker" aria-hidden="true">
+              <svg lucideBriefcaseBusiness></svg>
+            </div>
+            <div class="timeline-item__body">
+              <div class="timeline-item__topline">
+                <div>
+                  <h3>{{ experience.role }}</h3>
+                  <p>{{ experience.company }} - {{ experience.location }}</p>
+                </div>
+                <span><svg lucideCalendarDays aria-hidden="true"></svg>{{ experience.period }}</span>
+              </div>
+
+              <div class="project-pills" aria-label="Projects">
+                @for (project of experience.projects; track project) {
+                  <span>{{ project }}</span>
+                }
+              </div>
+
+              <ul>
+                @for (highlight of experience.highlights; track highlight) {
+                  <li>{{ highlight }}</li>
+                }
+              </ul>
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--light" aria-labelledby="projects-title">
+    <div class="section__inner">
+      <div class="section-heading" data-reveal>
+        <p class="section-kicker">Projects</p>
+        <h2 id="projects-title">Resume-listed project work.</h2>
+      </div>
+
+      <div class="project-grid">
+        @for (project of projects; track project.name) {
+          <article class="project-card" data-reveal>
+            <svg lucideLayers aria-hidden="true"></svg>
+            <h3>{{ project.name }}</h3>
+            <p>{{ project.context }}</p>
+            <div>
+              @for (detail of project.details; track detail) {
+                <span>{{ detail }}</span>
+              }
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="section section--white" aria-labelledby="skills-title">
+    <div class="section__inner">
+      <div class="section-heading" data-reveal>
+        <p class="section-kicker">Skills</p>
+        <h2 id="skills-title">Technical, tool, and soft skill coverage.</h2>
+      </div>
+
+      <div class="skills-grid">
+        @for (group of skillGroups; track group.title) {
+          <article class="skill-card" data-reveal>
+            <h3><svg lucideTerminal aria-hidden="true"></svg>{{ group.title }}</h3>
+            <div class="chip-list">
+              @for (skill of group.items; track skill) {
+                <span>{{ skill }}</span>
+              }
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section id="certifications" class="section section--dark" aria-labelledby="certifications-title">
+    <div class="section__inner two-column">
+      <div data-reveal>
+        <p class="section-kicker">Certifications</p>
+        <h2 id="certifications-title">AWS and Microsoft certified.</h2>
+        <div class="cert-list">
+          @for (certification of certifications; track certification) {
+            <article>
+              <svg lucideShieldCheck aria-hidden="true"></svg>
+              <span>{{ certification }}</span>
+            </article>
+          }
+        </div>
+      </div>
+
+      <div class="education-panel" data-reveal>
+        <p class="section-kicker">Education</p>
+        @for (item of education; track item.course) {
+          <article>
+            <svg lucideGraduationCap aria-hidden="true"></svg>
+            <div>
+              <h3>{{ item.course }}</h3>
+              <p>{{ item.institution }}</p>
+              <span>{{ item.period }} - {{ item.result }}</span>
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--light" aria-labelledby="achievements-title">
+    <div class="section__inner achievements-grid">
+      <div data-reveal>
+        <p class="section-kicker">Achievements</p>
+        <h2 id="achievements-title">Awards and recognition.</h2>
+      </div>
+
+      <div class="achievement-list">
+        @for (achievement of achievements; track achievement) {
+          <article data-reveal>
+            <svg lucideAward aria-hidden="true"></svg>
+            <p>{{ achievement }}</p>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white" aria-labelledby="memberships-title">
+    <div class="section__inner memberships-layout">
+      <div data-reveal>
+        <p class="section-kicker">Professional Memberships</p>
+        <h2 id="memberships-title">Communities listed in the resume.</h2>
+      </div>
+
+      <div class="membership-list" data-reveal>
+        @for (membership of memberships; track membership) {
+          <span><svg lucideSparkles aria-hidden="true"></svg>{{ membership }}</span>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="photo-strip" aria-label="Ajay Merapureddy photos">
+    @for (photo of photos; track photo.src) {
+      <img [src]="photo.src" [alt]="photo.alt" loading="lazy">
+    }
+  </section>
+
+  <section id="contact" class="contact-section" aria-labelledby="contact-title">
+    <div class="contact-section__inner" data-reveal>
+      <p class="section-kicker">Contact</p>
+      <h2 id="contact-title">Ajay Merapureddy</h2>
+      <div class="contact-grid">
+        <a href="mailto:ajaymerapureddy@gmail.com">
+          <svg lucideMail aria-hidden="true"></svg>
+          ajaymerapureddy&#64;gmail.com
+        </a>
+        <a href="tel:+917777977220">
+          <svg lucidePhone aria-hidden="true"></svg>
+          7777977220
+        </a>
+        <span>
+          <svg lucideMapPin aria-hidden="true"></svg>
+          Hyderabad, Telangana
+        </span>
+        <a href="https://linkedin.com/in/merapureddy/" target="_blank" rel="noopener">
+          <svg lucideExternalLink aria-hidden="true"></svg>
+          linkedin.com/in/merapureddy/
+        </a>
+      </div>
+      <a class="button button--gold" href="#about">
+        <svg lucideArrowUpRight aria-hidden="true"></svg>
+        Back to About Me
+      </a>
+    </div>
+  </section>
+</main>
