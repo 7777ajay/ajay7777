@@ -25,6 +25,13 @@ Press and publication update prompt:
 - Provide external links only for both newspaper articles, the journal page, and the official PDF.
 - Keep the section premium, scannable, accessible, mobile-safe, and consistent with the gold, white, and black motion system.
 
+Welcome video prompt:
+- Create a silent, lightweight animated welcome reel from Ajay Merapureddy's supplied portrait, using the existing gold, white, and black portfolio identity.
+- Keep the motion professional: portrait depth, soft glow, shimmer, animated text, and a clear welcome message.
+- Do not create fake lip-sync, synthetic speech, or misleading deepfake-style talking. The video should be a branded visual welcome loop, not a claim that Ajay recorded new footage.
+- Embed the reel in the hero area with muted autoplay, loop, playsinline, a poster image, and reduced-motion handling that pauses autoplay.
+- Keep the video compact and performance-friendly for mobile visitors.
+
 Content rules:
 - Use only resume-provided facts plus explicitly user-supplied verified press and publication facts for text, titles, projects, skills, dates, achievements, certifications, education, memberships, and contact information.
 - Do not invent testimonials, clients, metrics, social links, project outcomes, or biography.

@@ -399,8 +399,9 @@ export class AboutPageComponent {
       const orbitItems = Array.from(root.querySelectorAll<HTMLElement>('[data-orbit-reveal]'));
       const revealItems = Array.from(root.querySelectorAll<HTMLElement>('[data-reveal]'));
       const staggerContainers = Array.from(root.querySelectorAll<HTMLElement>('[data-stagger]'));
+      const welcomeVideos = Array.from(root.querySelectorAll<HTMLVideoElement>('[data-welcome-video]'));
       const spotlightItems = Array.from(root.querySelectorAll<HTMLElement>(
-        '.metric-card, .project-card, .skill-card, .timeline-item__body, .cert-list a, .achievement-list article, .achievement-list a, .credibility-card'
+        '.metric-card, .project-card, .skill-card, .timeline-item__body, .cert-list a, .achievement-list article, .achievement-list a, .credibility-card, .welcome-reel'
       ));
       const stops: Array<() => void> = [];
       const cleanupCallbacks: Array<() => void> = [];
@@ -421,7 +422,17 @@ export class AboutPageComponent {
       window.addEventListener('hashchange', scrollToCurrentHash);
       cleanupCallbacks.push(() => window.removeEventListener('hashchange', scrollToCurrentHash));
 
+      welcomeVideos.forEach((video) => {
+        video.defaultMuted = true;
+        video.muted = true;
+      });
+
       if (prefersReducedMotion) {
+        welcomeVideos.forEach((video) => {
+          video.pause();
+          video.removeAttribute('autoplay');
+        });
+
         [
           ...heroItems,
           ...heroVisuals,
@@ -438,6 +449,10 @@ export class AboutPageComponent {
         });
         return;
       }
+
+      welcomeVideos.forEach((video) => {
+        void video.play().catch(() => undefined);
+      });
 
       const ease: AnimationOptions['ease'] = [0.16, 1, 0.3, 1];
       const heroKeyframes: DOMKeyframesDefinition = { opacity: [0, 1], y: [24, 0], filter: ['blur(10px)', 'blur(0px)'] };
