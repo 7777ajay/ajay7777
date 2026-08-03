@@ -90,11 +90,9 @@ type Publication = {
   journal: string;
   citation: string;
   authors: string;
-  doi: string;
   keywords: string[];
   href: string;
   pdfHref: string;
-  doiHref: string;
 };
 
 @Component({
@@ -361,11 +359,9 @@ export class AboutPageComponent {
     journal: 'International Journal of Computer Sciences and Engineering',
     citation: 'Vol. 8, Issue 12, pp. 46-50, Dec. 2020',
     authors: 'CH. Lakshman Vinay, G. Vijay Sagar, M. Ajay, SK. Hussain, Bh Padma',
-    doi: '10.26438/ijcse/v8i12.4650',
     keywords: ['Insurance', 'Machine Learning', 'Decision Tree Induction'],
     href: 'https://ijcseonline.org/index.php/j/article/view/6223',
-    pdfHref: 'https://ijcseonline.org/index.php/j/article/download/6223/6212/12388',
-    doiHref: 'https://doi.org/10.26438/ijcse/v8i12.4650'
+    pdfHref: 'https://ijcseonline.org/index.php/j/article/download/6223/6212/12388'
   };
 
   readonly memberships = [
