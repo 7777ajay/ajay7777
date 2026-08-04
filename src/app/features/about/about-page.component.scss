@@ -683,6 +683,11 @@ main {
   line-height: 1;
 }
 
+.metric-card .metric-card__value--long {
+  font-size: clamp(1.65rem, 2.2vw, 2.15rem);
+  line-height: 1.08;
+}
+
 .metric-card span {
   display: block;
   margin-top: 12px;

@@ -138,7 +138,7 @@ export class AboutPageComponent {
   ];
 
   readonly metrics: Metric[] = [
-    { value: '5.10+ years', label: 'Java full stack development' },
+    { value: '5 years 10 months', label: 'Java full stack development' },
     { value: '6', label: 'AWS and Azure certifications' },
     { value: '3', label: 'Enterprise product and engineering teams' },
     { value: '3x', label: 'Merit Scholarship Award recipient' }

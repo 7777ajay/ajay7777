@@ -42,7 +42,7 @@
         <span>Merapureddy</span>
       </h1>
       <p class="hero__summary" data-hero-reveal>
-        Experienced Java Full Stack Developer with over 5.10+ years of expertise in overseeing
+        Experienced Java Full Stack Developer with 5 years 10 months of expertise in overseeing
         the Software Development Life Cycle.
       </p>
       <div class="hero__meta" aria-label="Contact summary" data-hero-reveal>
@@ -117,7 +117,7 @@
     <div class="metrics-band__inner">
       @for (metric of metrics; track metric.label) {
         <article class="metric-card" data-reveal>
-          <strong>{{ metric.value }}</strong>
+          <strong [class.metric-card__value--long]="metric.value.length > 10">{{ metric.value }}</strong>
           <span>{{ metric.label }}</span>
         </article>
       }
