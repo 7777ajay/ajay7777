@@ -81,7 +81,8 @@ type Credential = {
 };
 
 type Achievement = {
-  label: string;
+  title: string;
+  details: string[];
   href?: string;
 };
 
@@ -342,20 +343,41 @@ export class AboutPageComponent {
 
   readonly achievements: Achievement[] = [
     {
-      label: 'DGNP(V) Merit Scholarship Awards: Certificate of Merit for academic merit under the Educational Scholarship Scheme in 2014, 2015, and 2016.'
+      title: 'DGNP(V) Merit Scholarship Awards',
+      href: 'https://drive.google.com/drive/u/0/folders/1AiCDU8NURV1Y9Nt2YJycBbgILbwXE-pn',
+      details: [
+        'Certificate of Merit from Vice Admiral V. K. Namballa, Director General, Director General Naval Project, Naval Base Visakhapatnam, under the Educational Scholarship Scheme for academic merit. 25-Jul-2014.',
+        'Certificate of Merit from Vice Admiral P. M. Deshpande, Director General, Director General Naval Project, Naval Base Visakhapatnam, under the Educational Scholarship Scheme for academic merit. Jul-2015.',
+        'Certificate of Merit from Vice Admiral P. M. Deshpande, Director General, Director General Naval Project, Naval Base Visakhapatnam, under the Educational Scholarship Scheme for academic merit. 20-Jun-2016.'
+      ]
     },
     {
-      label: 'Won 3rd Prize at SWISH - Sunrise Indian Innovative Student Hackathon 2019, powered by DENSO Corporation and organized by infoBRIDGE with TalentSprint and GITAM support.'
+      title: 'SWISH - Sunrise Indian Innovative Student Hackathon 2019',
+      href: 'https://drive.google.com/drive/folders/1gXf7BvhzzqyNZ2ZqHcxOR-WtEncs9q30?usp=sharing',
+      details: [
+        'Won 3rd Prize at SWISH - Sunrise Indian Innovative Student Hackathon 2019, powered by DENSO Corporation, a global Fortune 500 Tier 1 automotive technology supplier; organized by infoBRIDGE and supported by TalentSprint and GITAM. 07-Sep 2019.'
+      ]
     },
     {
-      label: 'TCS Appreciations, Awards and Recognitions: Appreciation certificates, Best Team Award, and On The Spot Award for contributions to the State Farm account and organization.',
-      href: 'https://drive.google.com/drive/folders/1z58j0U3BysurpkC4rycMV4iatet9hU-i?usp=drive_link'
+      title: 'TCS Appreciations, Awards and Recognitions',
+      href: 'https://drive.google.com/drive/folders/1z58j0U3BysurpkC4rycMV4iatet9hU-i?usp=drive_link',
+      details: [
+        'Appreciation Certificate from Anitha Mohan, Delivery Partner of State Farm Account, TCS, for commitment and significant contribution toward delivering great work. 18-Sep-2023.',
+        'Appreciation Certificate from Chandu Chittibomma for problem-solving skills, positive attitude, and strong work ethic. 31-Oct-2023.',
+        'Best Team Award from Milind Lakkad, Executive VP & Global Head, Human Resources, for outstanding contribution to the organization. 11-Mar-2024.',
+        "Appreciation Certificate from Anitha Mohan, Delivery Partner of State Farm Account, TCS, for contribution toward FY'24 State Farm objectives. 03-Jun-2024.",
+        'On The Spot Award from Milind Lakkad, Executive VP & Global Head, Human Resources, for outstanding contribution to the organization. 06-Aug-2024.',
+        'Appreciation Certificate from Anitha Mohan, Delivery Partner of State Farm Account, TCS, for contribution toward unit performance for the quarter. 27-Aug-2024.',
+        'Appreciation Certificate from Anitha Mohan, Delivery Partner of State Farm Account, TCS, for contribution toward account performance and deliverables. 16-Dec-2024.'
+      ]
     },
     {
-      label: 'Acuiti Labs Appreciations, Awards and Recognitions: Formally honored with an appreciation letter for dedication, collaboration, and consistent contributions in 2026.'
-    },
-    {
-      label: 'Contributed to the Acuiti Labs Product Development Team, the only team across the company to receive the Best Team Award twice in 2025 and 2026.'
+      title: 'Acuiti Labs Appreciations, Awards and Recognitions',
+      href: 'https://drive.google.com/drive/folders/1K3tqPYD0pHXhCy7gMmKU_O1en4ujI6V8?usp=sharing',
+      details: [
+        'Formally honored with an appreciation letter from Acuiti Labs for dedication, collaboration, and consistent contributions. 2026.',
+        'Contributed to the Product Development Team, the only team across the company to receive the Best Team Award twice for outstanding performance and excellence. 2025 & 2026.'
+      ]
     }
   ];
 
@@ -394,8 +416,8 @@ export class AboutPageComponent {
 
   readonly photos: Photo[] = [
     {
-      src: '/assets/photos/ajay-acuiti-portrait.jpg',
-      alt: 'Ajay Merapureddy professional portrait at Acuiti Labs',
+      src: '/assets/photos/ajay-profile-1.jpeg',
+      alt: 'Ajay Merapureddy professional photo',
       variant: 'portrait'
     },
     {

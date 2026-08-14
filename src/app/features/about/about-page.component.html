@@ -79,8 +79,8 @@
       <div class="hero__portrait-glow" aria-hidden="true"></div>
       <img
         class="hero__image"
-        src="/assets/photos/ajay-acuiti-portrait.jpg"
-        alt="Ajay Merapureddy professional portrait at Acuiti Labs"
+        src="/assets/photos/ajay-profile-4.jpeg"
+        alt="Ajay Merapureddy professional portrait"
         fetchpriority="high"
       >
       <div class="hero__orbit hero__orbit--one" data-orbit-reveal>Java</div>
@@ -254,13 +254,27 @@
           @if (achievement.href) {
             <a [href]="achievement.href" target="_blank" rel="noopener" data-reveal>
               <svg lucideAward aria-hidden="true"></svg>
-              <p>{{ achievement.label }}</p>
+              <div>
+                <h3>{{ achievement.title }}</h3>
+                <ul>
+                  @for (detail of achievement.details; track detail) {
+                    <li>{{ detail }}</li>
+                  }
+                </ul>
+              </div>
               <svg lucideExternalLink aria-hidden="true"></svg>
             </a>
           } @else {
             <article data-reveal>
               <svg lucideAward aria-hidden="true"></svg>
-              <p>{{ achievement.label }}</p>
+              <div>
+                <h3>{{ achievement.title }}</h3>
+                <ul>
+                  @for (detail of achievement.details; track detail) {
+                    <li>{{ detail }}</li>
+                  }
+                </ul>
+              </div>
             </article>
           }
         }
