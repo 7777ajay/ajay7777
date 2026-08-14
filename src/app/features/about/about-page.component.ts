@@ -147,11 +147,11 @@ export class AboutPageComponent {
   ];
 
   readonly contact: ContactInfo = {
-    email: 'merapureddy22@gmail.com',
+    email: 'ajaymerapureddy@gmail.com',
     linkedin: 'https://www.linkedin.com/in/merapureddy/',
     location: 'Hyderabad, Telangana',
-    phone: '7891011226',
-    phoneHref: '+917891011226'
+    phone: '7777977220',
+    phoneHref: '+917777977220'
   };
 
   readonly metrics: Metric[] = [
