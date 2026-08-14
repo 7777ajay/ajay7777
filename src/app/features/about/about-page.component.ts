@@ -359,6 +359,14 @@ export class AboutPageComponent {
       ]
     },
     {
+      title: 'Acuiti Labs Appreciations, Awards and Recognitions',
+      href: 'https://drive.google.com/drive/folders/1K3tqPYD0pHXhCy7gMmKU_O1en4ujI6V8?usp=sharing',
+      details: [
+        'Formally honored with an appreciation letter from Acuiti Labs for dedication, collaboration, and consistent contributions. 2026.',
+        'Contributed to the Product Development Team, the only team across the company to receive the Best Team Award twice for outstanding performance and excellence. 2025 & 2026.'
+      ]
+    },
+    {
       title: 'TCS Appreciations, Awards and Recognitions',
       href: 'https://drive.google.com/drive/folders/1z58j0U3BysurpkC4rycMV4iatet9hU-i?usp=drive_link',
       details: [
@@ -369,14 +377,6 @@ export class AboutPageComponent {
         'On The Spot Award from Milind Lakkad, Executive VP & Global Head, Human Resources, for outstanding contribution to the organization. 06-Aug-2024.',
         'Appreciation Certificate from Anitha Mohan, Delivery Partner of State Farm Account, TCS, for contribution toward unit performance for the quarter. 27-Aug-2024.',
         'Appreciation Certificate from Anitha Mohan, Delivery Partner of State Farm Account, TCS, for contribution toward account performance and deliverables. 16-Dec-2024.'
-      ]
-    },
-    {
-      title: 'Acuiti Labs Appreciations, Awards and Recognitions',
-      href: 'https://drive.google.com/drive/folders/1K3tqPYD0pHXhCy7gMmKU_O1en4ujI6V8?usp=sharing',
-      details: [
-        'Formally honored with an appreciation letter from Acuiti Labs for dedication, collaboration, and consistent contributions. 2026.',
-        'Contributed to the Product Development Team, the only team across the company to receive the Best Team Award twice for outstanding performance and excellence. 2025 & 2026.'
       ]
     }
   ];
