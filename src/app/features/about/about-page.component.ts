@@ -34,6 +34,14 @@ type Metric = {
   label: string;
 };
 
+type ContactInfo = {
+  email: string;
+  linkedin: string;
+  location: string;
+  phone: string;
+  phoneHref: string;
+};
+
 type SkillGroup = {
   title: string;
   items: string[];
@@ -136,6 +144,14 @@ export class AboutPageComponent {
     { label: 'Media', href: '/about-me#media' },
     { label: 'Contact', href: '/about-me#contact' }
   ];
+
+  readonly contact: ContactInfo = {
+    email: 'merapureddy22@gmail.com',
+    linkedin: 'https://www.linkedin.com/in/merapureddy/',
+    location: 'Hyderabad, Telangana',
+    phone: '7891011226',
+    phoneHref: '+917891011226'
+  };
 
   readonly metrics: Metric[] = [
     { value: '5 years 10 months', label: 'Java full stack development' },
@@ -326,14 +342,20 @@ export class AboutPageComponent {
 
   readonly achievements: Achievement[] = [
     {
-      label: 'Received the Merit Scholarship Award 3 times in a row under the Educational Scholarship Scheme from the Director General Naval Projects(V). (2014 - 2016)'
+      label: 'DGNP(V) Merit Scholarship Awards: Certificate of Merit for academic merit under the Educational Scholarship Scheme in 2014, 2015, and 2016.'
     },
     {
-      label: '3rd Prize Winner in "SWISH Sunrise Indian Innovative Student Hackathon" (09/2019)'
+      label: 'Won 3rd Prize at SWISH - Sunrise Indian Innovative Student Hackathon 2019, powered by DENSO Corporation and organized by infoBRIDGE with TalentSprint and GITAM support.'
     },
     {
-      label: 'Received Best Team Award and On The Spot Award from Executive Vice President and Global Head Human Resources Milind Lakkad and Appreciation Certificate from HR Chandu and Delivery Partner Anitha Mohan State Farm Account, TCS.',
+      label: 'TCS Appreciations, Awards and Recognitions: Appreciation certificates, Best Team Award, and On The Spot Award for contributions to the State Farm account and organization.',
       href: 'https://drive.google.com/drive/folders/1z58j0U3BysurpkC4rycMV4iatet9hU-i?usp=drive_link'
+    },
+    {
+      label: 'Acuiti Labs Appreciations, Awards and Recognitions: Formally honored with an appreciation letter for dedication, collaboration, and consistent contributions in 2026.'
+    },
+    {
+      label: 'Contributed to the Acuiti Labs Product Development Team, the only team across the company to receive the Best Team Award twice in 2025 and 2026.'
     }
   ];
 
@@ -372,8 +394,8 @@ export class AboutPageComponent {
 
   readonly photos: Photo[] = [
     {
-      src: '/assets/photos/ajay-profile-1.jpeg',
-      alt: 'Ajay Merapureddy professional photo',
+      src: '/assets/photos/ajay-acuiti-portrait.jpg',
+      alt: 'Ajay Merapureddy professional portrait at Acuiti Labs',
       variant: 'portrait'
     },
     {
